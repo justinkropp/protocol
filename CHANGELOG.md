@@ -2,6 +2,7 @@
 
 ## Features
 
+* **css:** Button style updates. (#429)
 * **utility:** Add title size utility classes (#297)
   ** rename `text-display-` to `text-title-`, keep `text-display-` as an alias
 * **component:** Updates to emphasis box, with additional documentation and usage guidelines.
@@ -9,6 +10,7 @@
 
 ## Migration Tips
   * Find and replace `text-display-` to `text-title-`
+  * Find and replace `mzp-t-small` on buttons with `mzp-t-md`.
 
 # 11.0.1
 
