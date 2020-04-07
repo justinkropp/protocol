@@ -3,6 +3,49 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 @import '../../includes/lib';
+@import '../../includes/forms/lib';
+
+/* -------------------------------------------------------------------------- */
+// Resets
+// many from https://necolas.github.io/normalize.css/
+
+input,
+textarea {
+    @include font-base;
+    @include text-body-md;
+    line-height: 1.25;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+ [type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+ ::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/* -------------------------------------------------------------------------- */
+// Element styles
 
 label {
     display: block;
@@ -17,53 +60,9 @@ label {
 }
 
 button,
-input,
-select,
-textarea {
+select {
     @include font-base;
     @include text-body-md;
-}
-
-textarea {
-    height: auto;
-    max-width: 100%;
-}
-
-textarea,
-input[type='email'],
-input[type='url'],
-input[type='tel'],
-input[type='password'],
-input[type='search'],
-input[type='text'],
-input[type='number'],
-input[type='date'],
-input[type='time'] {
-    @include border-box;
-    background: $color-white;
-    border-radius: $border-radius-sm;
-    border: 1px solid $color-marketing-gray-80;
-    display: inline-block;
-    line-height: 1.25;
-    padding: .25em $spacing-sm;
-
-    &:hover {
-        border-color: $color-black;
-    }
-
-    &:focus {
-        border-color: $color-black;
-        box-shadow: 0 0 0 2px $color-blue-40;
-    }
-
-    &:disabled {
-        background: $color-marketing-gray-30;
-
-        &:hover,
-        &:focus {
-            border-color: $color-marketing-gray-80;
-        }
-    }
 }
 
 select:focus {
@@ -81,6 +80,172 @@ legend {
 fieldset li {
     margin-bottom: .5em;
 }
+
+/* -------------------------------------------------------------------------- */
+// Inputs & Textarea (excluding checkboxes and radio buttons)
+
+textarea,
+input[list],
+input[type='date'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='time'],
+input[type='url'] {
+    @include form-input;
+
+    &::placeholder {
+        color: $color-marketing-gray-70;
+    }
+
+    &:hover {
+        border-color: $color-link-hover;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $color-link;
+        box-shadow: $field-focus-ring;
+    }
+
+    .mzp-is-error & {
+        border-color: $form-red;
+        box-shadow: none;
+
+        &:hover {
+            border-color: $color-red-80;
+        }
+
+        &:focus {
+            border-color: $form-red;
+            box-shadow: 0 0 0 2px rgba($form-red, .5);
+        }
+    }
+
+    &:disabled,
+    &[aria-disabled=true] {
+        background: $color-marketing-gray-10;
+        border-color: $color-marketing-gray-30;
+        color: $color-marketing-gray-70;
+
+        &:focus {
+            border-color: $color-marketing-gray-80;
+        }
+    }
+}
+
+textarea,
+input[type='email'],
+input[list],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'] {
+    min-width: $field-min-width;
+    max-width: 100%;
+}
+
+textarea[cols],
+input[size] {
+    min-width: 0;
+}
+
+/* size on HTML is not a good way to size things, this is most evident at small sizes */
+input[size='2'] {
+    max-width: calc(2.5ch + #{$field-padding * 2});
+}
+
+input[size='3'] {
+    max-width: calc(3.5ch + #{$field-padding * 2});
+}
+
+input[size='4'] {
+    max-width: calc(4.5ch + #{$field-padding * 2});
+}
+
+input[size='5'] {
+    max-width: calc(5.5ch + #{$field-padding * 2});
+}
+
+input[type='search'] {
+    background-image: $url-image-search-form;
+    background-repeat: no-repeat;
+    background-position: left 8px top 50%;
+    padding: $field-padding $field-padding $field-padding calc(1.5em + #{$field-padding * 2});
+
+    &:hover {
+        background-image: $url-image-search-link-hover;
+    }
+
+    &:focus {
+        background-image: $url-image-search-link;
+    }
+
+    [dir="rtl"] & {
+        background-position: right 8px top 50%;
+        padding: $field-padding calc(1.5em + #{$field-padding * 2}) $field-padding $field-padding;
+    }
+}
+
+input[type='color'],
+input[type='file'] {
+    background: $color-white;
+    border-radius: $field-border-radius;
+    border: $field-border;
+    line-height: 1.25;
+    margin: 0 0 $field-v-spacing;
+
+    &:hover {
+        border-color: $color-link-hover;
+    }
+
+    &:focus {
+        border-color: $color-link;
+        box-shadow: $field-focus-ring;
+        outline: none;
+    }
+
+    .mzp-is-error & {
+        border-color: $form-red;
+        box-shadow: none;
+
+        &:hover {
+            border-color: $color-red-80;
+        }
+
+        &:focus {
+            border-color: $form-red;
+            box-shadow: 0 0 0 2px rgba($form-red, .5);
+        }
+    }
+
+    &:disabled,
+    &[aria-disabled=true] {
+        background: $color-marketing-gray-30;
+        border-color: $color-marketing-gray-30;
+        color: $color-marketing-gray-70;
+
+        &:focus {
+            border-color: $color-marketing-gray-80;
+        }
+    }
+}
+
+input[type='file'] {
+    padding: $field-padding;
+}
+
+textarea {
+    height: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+// Basic utility classes
 
 .mzp-c-fieldnote {
     @include text-body-sm;
@@ -109,23 +274,6 @@ fieldset li {
 
     .mzp-c-fieldnote {
         color: $color-red-60;
-    }
-
-    textarea,
-    input[type='email'],
-    input[type='url'],
-    input[type='tel'],
-    input[type='password'],
-    input[type='search'],
-    input[type='text'],
-    input[type='number'],
-    input[type='date'],
-    input[type='time'] {
-        border-color: $color-red-60;
-
-        &:focus {
-            box-shadow: 0 0 0 2px $color-red-50;
-        }
     }
 
     select,
