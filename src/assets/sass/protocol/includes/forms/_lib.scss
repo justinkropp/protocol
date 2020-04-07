@@ -1,0 +1,32 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+// Import all the things!
+@import '../lib';
+
+/* forms
+- use padding as much as possible, margins don't collapse on form elements
+*/
+
+$form-red: #D70022;
+$form-text: $color-marketing-gray-70;
+$field-border: 2px solid $color-marketing-gray-50;
+$field-min-width: 300px;
+$field-border-radius: $border-radius-sm;
+$field-padding: $spacing-sm;
+$field-h-spacing: $spacing-md;
+$field-v-spacing: $spacing-lg;
+$field-focus-ring: 0 0 0 2px rgba($color-blue-40, .5);
+$symbol-spacing: calc(1.5em + #{$spacing-sm * 2});
+
+@mixin form-input() {
+    @include border-box;
+    @include text-body-md;
+    background-color: $color-white;
+    border-radius: $field-border-radius;
+    border: $field-border;
+    line-height: 1.25;
+    margin: 0 0 $field-v-spacing;
+    padding: $field-padding;
+}
